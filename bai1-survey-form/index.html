@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Market Research Survey</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- ============================================================
+         BAI 1 - Dung lai giao dien form "Market Research Survey"
+         Sinh vien: Nguyen Trung Hieu - MSV 24D192059
+         ============================================================ -->
+    <main class="page">
+      <form class="survey" action="#" method="post">
+        <!-- ---------- Dau form: tieu de + mo ta + duong ke cham ---------- -->
+        <header class="survey__head">
+          <h1 class="survey__title">Market Research Survey</h1>
+          <p class="survey__desc">
+            Please take a few moments to complete this satisfaction survey.
+          </p>
+        </header>
+
+        <!-- ---------- 1. O chon (select) ---------- -->
+        <div class="field">
+          <label class="field__label" for="age">What is your age range?</label>
+          <select class="field__select" id="age" name="age">
+            <option>18-24</option>
+            <option>25-34</option>
+            <option>35-44</option>
+            <option>45-54</option>
+            <option>55+</option>
+          </select>
+        </div>
+
+        <!-- ---------- 2. O chon (select) ---------- -->
+        <div class="field">
+          <label class="field__label" for="income">What is your yearly income range?</label>
+          <select class="field__select" id="income" name="income">
+            <option>$0 - $25,000</option>
+            <option>$25,001 - $50,000</option>
+            <option>$50,001 - $100,000</option>
+            <option>$100,000+</option>
+          </select>
+        </div>
+
+        <!-- ---------- 3. Nhom nut tron (radio) + o nhap "Other" ---------- -->
+        <fieldset class="field">
+          <legend class="field__label">Gender Identity</legend>
+
+          <div class="choice">
+            <input type="radio" id="male" name="gender" value="male" checked />
+            <label for="male">Male</label>
+          </div>
+          <div class="choice">
+            <input type="radio" id="female" name="gender" value="female" />
+            <label for="female">Female</label>
+          </div>
+          <div class="choice">
+            <input type="radio" id="nonbinary" name="gender" value="nonbinary" />
+            <label for="nonbinary">Nonbinary</label>
+          </div>
+          <div class="choice">
+            <input type="radio" id="other" name="gender" value="other" />
+            <label for="other">Other</label>
+          </div>
+
+          <!-- O nhap tu do cua lua chon "Other" - nam o dong duoi, thut vao -->
+          <input class="field__text field__text--other" type="text" name="gender_other" aria-label="Other" />
+        </fieldset>
+
+        <!-- ---------- 4. Nhom hop kiem (checkbox) ---------- -->
+        <fieldset class="field">
+          <legend class="field__label">
+            Which of the following products have your purchased in the last 2 months. Please
+            check all that apply.
+          </legend>
+
+          <div class="choice">
+            <input type="checkbox" id="p1" name="product" value="product1" />
+            <label for="p1">Product 1</label>
+          </div>
+          <div class="choice">
+            <input type="checkbox" id="p2" name="product" value="product2" />
+            <label for="p2">Product 2</label>
+          </div>
+          <div class="choice">
+            <input type="checkbox" id="p3" name="product" value="product3" />
+            <label for="p3">Product 3</label>
+          </div>
+        </fieldset>
+
+        <!-- ---------- 5. Nhom nut tron (radio) ---------- -->
+        <fieldset class="field">
+          <legend class="field__label">How often would you use our new product?</legend>
+
+          <div class="choice">
+            <input type="radio" id="daily" name="frequency" value="daily" />
+            <label for="daily">Daily</label>
+          </div>
+          <div class="choice">
+            <input type="radio" id="weekly" name="frequency" value="weekly" />
+            <label for="weekly">Weekly</label>
+          </div>
+          <div class="choice">
+            <input type="radio" id="monthly" name="frequency" value="monthly" />
+            <label for="monthly">Monthly</label>
+          </div>
+        </fieldset>
+
+        <!-- ---------- 6. O nhap tien: $ [Dollars] . [Cents] ---------- -->
+        <div class="field">
+          <label class="field__label" for="dollars">What would you pay for the new product?</label>
+
+          <div class="money">
+            <span class="money__sign">$</span>
+
+            <span class="money__box">
+              <input id="dollars" type="text" name="dollars" inputmode="numeric" />
+              <small class="money__unit">Dollars</small>
+            </span>
+
+            <span class="money__sign">.</span>
+
+            <span class="money__box">
+              <input id="cents" type="text" name="cents" inputmode="numeric" />
+              <small class="money__unit">Cents</small>
+            </span>
+          </div>
+        </div>
+
+        <!-- ---------- 7. Vung van ban dai (textarea) ---------- -->
+        <div class="field">
+          <label class="field__label" for="features">
+            What features would you like to see in the new product.
+          </label>
+          <textarea class="field__textarea" id="features" name="features" rows="2"></textarea>
+        </div>
+      </form>
+    </main>
+
+    <!-- ---------- Chan trang: Powered by wufoo / by SurveyMonkey ---------- -->
+    <footer class="powered">
+      <span class="powered__text">Powered by</span>
+      <span class="powered__brand">
+        <span class="powered__logo">wufoo</span>
+        <small class="powered__by">by SurveyMonkey</small>
+      </span>
+    </footer>
+  </body>
+</html>

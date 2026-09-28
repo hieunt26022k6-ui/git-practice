@@ -1,0 +1,245 @@
+/* ==========================================================================
+   BAI 1 - Form "Market Research Survey"  (dung lai giao dien theo anh mau)
+   Sinh vien: Nguyen Trung Hieu - MSV 24D192059
+   ==========================================================================
+   MUC LUC
+   1. Reset + bien dung chung
+   2. Khung trang + dau form (tieu de, mo ta, duong ke cham)
+   3. Cac kieu truong nhap: label, select, radio/checkbox, o nhap tien, textarea
+   4. Chan trang "Powered by wufoo"
+   5. Responsive
+   ========================================================================== */
+
+/* ==========================================================================
+   1. RESET + BIEN DUNG CHUNG
+   ========================================================================== */
+:root {
+  --ink: #222222;        /* chu dam: tieu de, label */
+  --text: #555555;       /* chu thuong: mo ta */
+  --line: #cccccc;       /* duong ke cham / vien nhat */
+  --border: #767676;     /* vien o nhap, giong kieu mac dinh cua trinh duyet */
+  --muted: #999999;      /* chu nho mau xam (Dollars / Cents) */
+  --brand: #e66760;      /* mau do cua logo wufoo */
+  --foot-bg: #f6f7fb;    /* nen chan trang */
+  --pad: 20px;           /* le trai/phai cua noi dung */
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: #ffffff;
+  color: var(--ink);
+  /* Form goc cua Wufoo dung font he Arial/Helvetica */
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   2. KHUNG TRANG + DAU FORM
+   ========================================================================== */
+.page { padding: 0 var(--pad); }
+
+/* --- Tieu de + mo ta --- */
+.survey__head {
+  padding-top: 8px;
+  padding-bottom: 20px;
+  /* Duong ke cham chay het be ngang: keo 2 ben ra ngoai le 20px cua .page */
+  margin: 0 calc(-1 * var(--pad));
+  padding-inline: var(--pad);
+  border-bottom: 1px dotted var(--line);
+}
+
+.survey__title {
+  margin: 0 0 6px;
+  font-size: 26px;
+  line-height: 1.25;
+  font-weight: bold;
+  color: var(--ink);
+}
+
+.survey__desc {
+  margin: 0;
+  font-size: 17px;
+  color: var(--text);
+}
+
+/* ==========================================================================
+   3. CAC KIEU TRUONG NHAP
+   ========================================================================== */
+
+/* moi cau hoi la 1 khoi .field, cach nhau 24px */
+.field {
+  margin: 0;
+  padding: 0;
+  border: none;          /* fieldset mac dinh co vien -> bo di */
+  margin-top: 20px;
+}
+
+/* cau hoi dau tien nam ngay duoi duong ke cham -> sat hon cac cau sau */
+.survey__head + .field { margin-top: 14px; }
+
+/* dong lua chon: dam, dam mau, cach o nhap 8px */
+.field__label {
+  display: block;
+  margin-bottom: 6px;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1.25;
+  font-weight: bold;
+  color: var(--ink);
+}
+
+/* ---- O chon (select): rong bang 1/2 form, cao 29px ---- */
+.field__select {
+  width: 50%;
+  min-width: 220px;
+  height: 29px;
+  padding: 0 2px;
+  border: 1px solid var(--border);
+  background: #ffffff;
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--ink);
+}
+
+/* ---- O nhap chu binh thuong ---- */
+.field__text {
+  height: 26px;
+  padding: 0 6px;
+  border: 1px solid var(--border);
+  font-family: inherit;
+  font-size: 16px;
+}
+
+/* o "Other" cua cau hoi Gender: nam duoi, thut vao cho thang voi chu */
+.field__text--other {
+  display: block;
+  width: 180px;
+  margin-top: 8px;
+  margin-left: 30px;
+}
+
+/* ---- Nhom radio / checkbox ---- */
+/* moi lua chon la 1 dong .choice: o tron/vuong + chu, cao 32px.
+   Dong dau tien nam ngay duoi cau hoi nen keo len 5px cho khop anh mau. */
+.field__label + .choice { margin-top: -5px; }
+
+.choice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+}
+
+.choice input {
+  width: 13px;
+  height: 13px;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.choice label {
+  font-size: 16px;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+/* ---- O nhap tien: $ [Dollars] . [Cents] ---- */
+.money {
+  display: flex;
+  align-items: flex-start;   /* canh theo dong tren cho khop voi dau $ */
+  gap: 6px;
+  font-size: 16px;
+}
+
+/* dau $ va dau . */
+.money__sign { line-height: 26px; }
+
+/* 1 o nhap + nhan nho nam duoi (Dollars / Cents) */
+.money__box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.money__box input {
+  height: 26px;
+  padding: 0 6px;
+  border: 1px solid var(--border);
+  font-family: inherit;
+  font-size: 16px;
+}
+
+/* o dau (Dollars) rong, o sau (Cents) hep.
+   Luu y: phai dung nth-of-type vi the <span> dau tien trong .money
+   la dau "$" (khong co class money__box) -> first-of-type se khong khop. */
+.money__box:nth-of-type(2) input { width: 90px; }
+.money__box:nth-of-type(4) input { width: 30px; padding: 0 2px; }
+
+.money__unit {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* ---- Vung van ban dai ---- */
+.field__textarea {
+  display: block;
+  width: 100%;
+  height: 55px;
+  padding: 6px;
+  border: 1px solid var(--border);
+  font-family: inherit;
+  font-size: 16px;
+  resize: vertical;
+}
+
+/* ==========================================================================
+   4. CHAN TRANG "Powered by wufoo"
+   ========================================================================== */
+.powered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 56px;
+  margin-top: 26px;
+  border-top: 1px solid var(--line);
+  background: var(--foot-bg);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.powered__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.1;
+}
+
+/* logo wufoo: chu dam mau do (khong co file anh nen ve bang chu) */
+.powered__logo {
+  color: var(--brand);
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.powered__by {
+  font-size: 10px;
+  color: #6b787f;
+}
+
+/* ==========================================================================
+   5. RESPONSIVE - man hinh nho thi o chon rong theo man hinh
+   ========================================================================== */
+@media (max-width: 600px) {
+  .field__select { width: 100%; }
+  .field__text--other { margin-left: 0; }
+  .survey__title { font-size: 20px; }
+  .survey__desc { font-size: 16px; }
+}
