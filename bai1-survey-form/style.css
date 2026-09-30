@@ -1,68 +1,106 @@
 /* ==========================================================================
-   BAI 1 - Form "Market Research Survey"  (dung lai giao dien theo anh mau)
+   BAI 1 - Form "Market Research Survey"  (lam lai giao dien cho de nhin hon)
    Sinh vien: Nguyen Trung Hieu - MSV 24D192059
    ==========================================================================
    MUC LUC
-   1. Reset + bien dung chung
-   2. Khung trang + dau form (tieu de, mo ta, duong ke cham)
-   3. Cac kieu truong nhap: label, select, radio/checkbox, o nhap tien, textarea
+   1. Bien dung chung + reset + nen giay
+   2. Khung trang (card) + dau form
+   3. Cac kieu truong nhap: label, select, radio/checkbox, tien, textarea
    4. Chan trang "Powered by wufoo"
    5. Responsive
    ========================================================================== */
 
 /* ==========================================================================
-   1. RESET + BIEN DUNG CHUNG
+   1. BIEN DUNG CHUNG + RESET + NEN GIAY
    ========================================================================== */
 :root {
-  --ink: #222222;        /* chu dam: tieu de, label */
-  --text: #555555;       /* chu thuong: mo ta */
-  --line: #cccccc;       /* duong ke cham / vien nhat */
-  --border: #767676;     /* vien o nhap, giong kieu mac dinh cua trinh duyet */
-  --muted: #999999;      /* chu nho mau xam (Dollars / Cents) */
-  --brand: #e66760;      /* mau do cua logo wufoo */
-  --foot-bg: #f6f7fb;    /* nen chan trang */
-  --pad: 20px;           /* le trai/phai cua noi dung */
+  --paper: #f3efe7;        /* nen giay am */
+  --card: #ffffff;         /* nen card trang */
+  --ink: #16130f;          /* chu dam: tieu de, label */
+  --text: #5c554b;         /* chu thuong: mo ta */
+  --muted: #8c857a;        /* chu nho mau xam (Dollars / Cents) */
+  --line: #e7e0d4;         /* duong ke cham / vien nhat */
+  --border: #d8d0c2;       /* vien o nhap */
+  --border-hover: #c2b8a6;
+  --accent: #b4552f;       /* mau nhan: trang thai chon, focus */
+  --accent-soft: #fbeee6;  /* nen nhat cua mau nhan */
+  --brand: #e66760;        /* mau do cua logo wufoo */
+  --radius: 18px;
+  --radius-sm: 12px;
+  --shadow: 0 1px 2px rgba(22, 19, 15, 0.04), 0 18px 40px -20px rgba(22, 19, 15, 0.28);
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
-html, body { margin: 0; padding: 0; }
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
 
 body {
-  background: #ffffff;
+  /* nen "giay am" + hoa tiet cham mo cho co chat lieu */
+  background-color: var(--paper);
+  background-image: radial-gradient(rgba(22, 19, 15, 0.05) 1px, transparent 1px);
+  background-size: 22px 22px;
   color: var(--ink);
-  /* Form goc cua Wufoo dung font he Arial/Helvetica */
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   font-size: 16px;
-  line-height: 1.4;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ==========================================================================
-   2. KHUNG TRANG + DAU FORM
+   2. KHUNG TRANG (CARD) + DAU FORM
    ========================================================================== */
-.page { padding: 0 var(--pad); }
+.page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 44px 24px 0;
+}
+
+.survey {
+  padding: 38px 44px 44px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
 
 /* --- Tieu de + mo ta --- */
 .survey__head {
-  padding-top: 8px;
-  padding-bottom: 20px;
-  /* Duong ke cham chay het be ngang: keo 2 ben ra ngoai le 20px cua .page */
-  margin: 0 calc(-1 * var(--pad));
-  padding-inline: var(--pad);
-  border-bottom: 1px dotted var(--line);
+  padding-bottom: 24px;
+  margin-bottom: 28px;
+  border-bottom: 2px dotted var(--line);
+}
+
+/* vach nhan ngan phia tren tieu de */
+.survey__head::before {
+  content: "";
+  display: block;
+  width: 46px;
+  height: 4px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  background: var(--accent);
 }
 
 .survey__title {
-  margin: 0 0 6px;
-  font-size: 26px;
-  line-height: 1.25;
-  font-weight: bold;
+  margin: 0 0 8px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 31px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   color: var(--ink);
 }
 
 .survey__desc {
   margin: 0;
-  font-size: 17px;
+  max-width: 60ch;
+  font-size: 16px;
   color: var(--text);
 }
 
@@ -70,118 +108,230 @@ body {
    3. CAC KIEU TRUONG NHAP
    ========================================================================== */
 
-/* moi cau hoi la 1 khoi .field, cach nhau 24px */
+/* moi cau hoi la 1 khoi .field, cach nhau 28px */
 .field {
+  min-width: 0;
   margin: 0;
   padding: 0;
-  border: none;          /* fieldset mac dinh co vien -> bo di */
-  margin-top: 20px;
+  border: none;
 }
 
-/* cau hoi dau tien nam ngay duoi duong ke cham -> sat hon cac cau sau */
-.survey__head + .field { margin-top: 14px; }
+.field + .field {
+  margin-top: 28px;
+}
 
-/* dong lua chon: dam, dam mau, cach o nhap 8px */
+/* dong cau hoi: dam, cach o nhap 10px */
 .field__label {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
   padding: 0;
-  font-size: 16px;
-  line-height: 1.25;
-  font-weight: bold;
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 700;
+  letter-spacing: 0.005em;
   color: var(--ink);
 }
 
-/* ---- O chon (select): rong bang 1/2 form, cao 29px ---- */
+/* ---- O chon (select) ---- */
 .field__select {
-  width: 50%;
-  min-width: 220px;
-  height: 29px;
-  padding: 0 2px;
-  border: 1px solid var(--border);
-  background: #ffffff;
+  width: 100%;
+  max-width: 420px;
+  height: 48px;
+  padding: 0 44px 0 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: #fff
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1.5 6 6.5l5-5' stroke='%238c857a' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/></svg>")
+    no-repeat right 14px center;
   font-family: inherit;
-  font-size: 16px;
+  font-size: 15px;
   color: var(--ink);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.field__select:hover {
+  border-color: var(--border-hover);
+}
+
+.field__select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
 }
 
 /* ---- O nhap chu binh thuong ---- */
 .field__text {
-  height: 26px;
-  padding: 0 6px;
-  border: 1px solid var(--border);
+  height: 48px;
+  padding: 0 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: #fff;
   font-family: inherit;
-  font-size: 16px;
+  font-size: 15px;
+  color: var(--ink);
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 
-/* o "Other" cua cau hoi Gender: nam duoi, thut vao cho thang voi chu */
+.field__text::placeholder {
+  color: #b3aa9c;
+}
+
+/* o "Other" cua cau hoi Gender: nam ngay duoi the "Other" (cot thu 2
+   cua luoi 2 cot, gap 10px) de nhin la biet thuoc lua chon nao */
 .field__text--other {
   display: block;
-  width: 180px;
-  margin-top: 8px;
-  margin-left: 30px;
+  width: calc(50% - 5px);
+  margin-top: 12px;
+  margin-left: calc(50% + 5px);
 }
 
-/* ---- Nhom radio / checkbox ---- */
-/* moi lua chon la 1 dong .choice: o tron/vuong + chu, cao 32px.
-   Dong dau tien nam ngay duoi cau hoi nen keo len 5px cho khop anh mau. */
-.field__label + .choice { margin-top: -5px; }
+/* ---- Nhom radio / checkbox: moi lua chon la 1 "the" bam duoc ---- */
+.choices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+}
+
+/* nhom chi co 4 lua chon ngan thi chia 2 cot -> luoi 2x2 can doi */
+.choices--two {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* nhom chi co 3 lua chon ngan thi chia 3 cot cho gon */
+.choices--three {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
 
 .choice {
   display: flex;
   align-items: center;
-  gap: 8px;
-  height: 32px;
+  gap: 12px;
+  min-height: 52px;
+  padding: 12px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
 }
 
-.choice input {
-  width: 13px;
-  height: 13px;
+.choice:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 3px 12px rgba(22, 19, 15, 0.07);
+}
+
+/* lua chon dang duoc chon: doi vien + nen nhat */
+.choice:has(input:checked) {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: 0 0 0 3px rgba(180, 85, 47, 0.08);
+}
+
+/* vien bao quanh khi di chuyen bang ban phim */
+.choice:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(180, 85, 47, 0.12);
+}
+
+/* --- O tron / o vuong ve lai bang CSS (to hon, de bam hon) --- */
+.choice input[type="radio"],
+.choice input[type="checkbox"] {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
   margin: 0;
-  flex-shrink: 0;
+  border: 1.5px solid #c6bcaa;
+  background: #fff;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.choice input[type="radio"] {
+  border-radius: 50%;
+}
+
+.choice input[type="checkbox"] {
+  border-radius: 6px;
+}
+
+/* nut tron khi chon: vien day len tao thanh 1 cham tron */
+.choice input[type="radio"]:checked {
+  border: 6px solid var(--accent);
+}
+
+/* hop kiem khi chon: nen dam + dau tick trang */
+.choice input[type="checkbox"]:checked {
+  border-color: var(--accent);
+  background: var(--accent)
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='10' viewBox='0 0 12 10' fill='none'><path d='M1 5.2 4.3 8.5 11 1.5' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>")
+    center / 12px no-repeat;
 }
 
 .choice label {
-  font-size: 16px;
+  font-size: 15px;
+  line-height: 1.35;
   color: var(--ink);
   cursor: pointer;
+}
+
+.choice:has(input:checked) label {
+  font-weight: 700;
 }
 
 /* ---- O nhap tien: $ [Dollars] . [Cents] ---- */
 .money {
   display: flex;
-  align-items: flex-start;   /* canh theo dong tren cho khop voi dau $ */
-  gap: 6px;
-  font-size: 16px;
+  align-items: flex-start;
+  gap: 10px;
 }
 
-/* dau $ va dau . */
-.money__sign { line-height: 26px; }
+/* dau $ va dau . : cao bang o nhap de thang hang voi o nhap */
+.money__sign {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+}
 
 /* 1 o nhap + nhan nho nam duoi (Dollars / Cents) */
 .money__box {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
+  gap: 6px;
 }
 
 .money__box input {
-  height: 26px;
-  padding: 0 6px;
-  border: 1px solid var(--border);
+  height: 48px;
+  padding: 0 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: #fff;
   font-family: inherit;
-  font-size: 16px;
+  font-size: 15px;
+  color: var(--ink);
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 
-/* o dau (Dollars) rong, o sau (Cents) hep.
-   Luu y: phai dung nth-of-type vi the <span> dau tien trong .money
-   la dau "$" (khong co class money__box) -> first-of-type se khong khop. */
-.money__box:nth-of-type(2) input { width: 90px; }
-.money__box:nth-of-type(4) input { width: 30px; padding: 0 2px; }
+.money__box--dollars input {
+  width: 180px;
+}
+
+.money__box--cents input {
+  width: 96px;
+}
 
 .money__unit {
+  padding-left: 4px;
   font-size: 11px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
   color: var(--muted);
 }
 
@@ -189,12 +339,26 @@ body {
 .field__textarea {
   display: block;
   width: 100%;
-  height: 55px;
-  padding: 6px;
-  border: 1px solid var(--border);
+  min-height: 110px;
+  padding: 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: #fff;
   font-family: inherit;
-  font-size: 16px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink);
   resize: vertical;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+/* ---- Trang thai focus dung chung cho moi o nhap ---- */
+.field__text:focus,
+.money__box input:focus,
+.field__textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
 }
 
 /* ==========================================================================
@@ -204,13 +368,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  height: 56px;
-  margin-top: 26px;
-  border-top: 1px solid var(--line);
-  background: var(--foot-bg);
+  gap: 12px;
+  max-width: 800px;
+  margin: 22px auto 44px;
+  padding: 18px 24px 0;
+  border-top: 2px dotted var(--line);
   color: var(--muted);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .powered__brand {
@@ -223,7 +387,7 @@ body {
 /* logo wufoo: chu dam mau do (khong co file anh nen ve bang chu) */
 .powered__logo {
   color: var(--brand);
-  font-size: 21px;
+  font-size: 20px;
   font-weight: 800;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -235,11 +399,55 @@ body {
 }
 
 /* ==========================================================================
-   5. RESPONSIVE - man hinh nho thi o chon rong theo man hinh
+   5. RESPONSIVE
    ========================================================================== */
-@media (max-width: 600px) {
-  .field__select { width: 100%; }
-  .field__text--other { margin-left: 0; }
-  .survey__title { font-size: 20px; }
-  .survey__desc { font-size: 16px; }
+@media (max-width: 640px) {
+  .page {
+    padding: 20px 14px 0;
+  }
+
+  .survey {
+    padding: 26px 20px 30px;
+    border-radius: 16px;
+  }
+
+  .survey__title {
+    font-size: 23px;
+  }
+
+  .survey__desc {
+    font-size: 15px;
+  }
+
+  /* man hinh nho: moi lua chon 1 dong cho de doc */
+  .choices,
+  .choices--two,
+  .choices--three {
+    grid-template-columns: 1fr;
+  }
+
+  .field__select {
+    max-width: 100%;
+  }
+
+  .field__text--other {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .money {
+    gap: 8px;
+  }
+
+  .money__box--dollars input {
+    width: 132px;
+  }
+
+  .money__box--cents input {
+    width: 80px;
+  }
+
+  .powered {
+    padding-inline: 14px;
+  }
 }

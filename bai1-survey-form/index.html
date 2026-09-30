@@ -4,12 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Market Research Survey</title>
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./style.css?v=2" />
   </head>
   <body>
     <!-- ============================================================
          BAI 1 - Dung lai giao dien form "Market Research Survey"
          Sinh vien: Nguyen Trung Hieu - MSV 24D192059
+         Ghi chu: toan bo truong nhap (name/value/type) giu nguyen,
+                  chi lam lai phan trinh bay cho de nhin hon.
          ============================================================ -->
     <main class="page">
       <form class="survey" action="#" method="post">
@@ -48,25 +50,33 @@
         <fieldset class="field">
           <legend class="field__label">Gender Identity</legend>
 
-          <div class="choice">
-            <input type="radio" id="male" name="gender" value="male" checked />
-            <label for="male">Male</label>
-          </div>
-          <div class="choice">
-            <input type="radio" id="female" name="gender" value="female" />
-            <label for="female">Female</label>
-          </div>
-          <div class="choice">
-            <input type="radio" id="nonbinary" name="gender" value="nonbinary" />
-            <label for="nonbinary">Nonbinary</label>
-          </div>
-          <div class="choice">
-            <input type="radio" id="other" name="gender" value="other" />
-            <label for="other">Other</label>
+          <div class="choices choices--two">
+            <div class="choice">
+              <input type="radio" id="male" name="gender" value="male" checked />
+              <label for="male">Male</label>
+            </div>
+            <div class="choice">
+              <input type="radio" id="female" name="gender" value="female" />
+              <label for="female">Female</label>
+            </div>
+            <div class="choice">
+              <input type="radio" id="nonbinary" name="gender" value="nonbinary" />
+              <label for="nonbinary">Nonbinary</label>
+            </div>
+            <div class="choice">
+              <input type="radio" id="other" name="gender" value="other" />
+              <label for="other">Other</label>
+            </div>
           </div>
 
           <!-- O nhap tu do cua lua chon "Other" - nam o dong duoi, thut vao -->
-          <input class="field__text field__text--other" type="text" name="gender_other" aria-label="Other" />
+          <input
+            class="field__text field__text--other"
+            type="text"
+            name="gender_other"
+            aria-label="Other"
+            placeholder="Please specify"
+          />
         </fieldset>
 
         <!-- ---------- 4. Nhom hop kiem (checkbox) ---------- -->
@@ -76,17 +86,19 @@
             check all that apply.
           </legend>
 
-          <div class="choice">
-            <input type="checkbox" id="p1" name="product" value="product1" />
-            <label for="p1">Product 1</label>
-          </div>
-          <div class="choice">
-            <input type="checkbox" id="p2" name="product" value="product2" />
-            <label for="p2">Product 2</label>
-          </div>
-          <div class="choice">
-            <input type="checkbox" id="p3" name="product" value="product3" />
-            <label for="p3">Product 3</label>
+          <div class="choices">
+            <div class="choice">
+              <input type="checkbox" id="p1" name="product" value="product1" />
+              <label for="p1">Product 1</label>
+            </div>
+            <div class="choice">
+              <input type="checkbox" id="p2" name="product" value="product2" />
+              <label for="p2">Product 2</label>
+            </div>
+            <div class="choice">
+              <input type="checkbox" id="p3" name="product" value="product3" />
+              <label for="p3">Product 3</label>
+            </div>
           </div>
         </fieldset>
 
@@ -94,17 +106,19 @@
         <fieldset class="field">
           <legend class="field__label">How often would you use our new product?</legend>
 
-          <div class="choice">
-            <input type="radio" id="daily" name="frequency" value="daily" />
-            <label for="daily">Daily</label>
-          </div>
-          <div class="choice">
-            <input type="radio" id="weekly" name="frequency" value="weekly" />
-            <label for="weekly">Weekly</label>
-          </div>
-          <div class="choice">
-            <input type="radio" id="monthly" name="frequency" value="monthly" />
-            <label for="monthly">Monthly</label>
+          <div class="choices choices--three">
+            <div class="choice">
+              <input type="radio" id="daily" name="frequency" value="daily" />
+              <label for="daily">Daily</label>
+            </div>
+            <div class="choice">
+              <input type="radio" id="weekly" name="frequency" value="weekly" />
+              <label for="weekly">Weekly</label>
+            </div>
+            <div class="choice">
+              <input type="radio" id="monthly" name="frequency" value="monthly" />
+              <label for="monthly">Monthly</label>
+            </div>
           </div>
         </fieldset>
 
@@ -115,14 +129,14 @@
           <div class="money">
             <span class="money__sign">$</span>
 
-            <span class="money__box">
+            <span class="money__box money__box--dollars">
               <input id="dollars" type="text" name="dollars" inputmode="numeric" />
               <small class="money__unit">Dollars</small>
             </span>
 
             <span class="money__sign">.</span>
 
-            <span class="money__box">
+            <span class="money__box money__box--cents">
               <input id="cents" type="text" name="cents" inputmode="numeric" />
               <small class="money__unit">Cents</small>
             </span>
